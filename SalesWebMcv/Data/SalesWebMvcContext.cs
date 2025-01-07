@@ -1,6 +1,7 @@
 ﻿using SalesWebMcv.Models;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Models;
 
 namespace SalesWebMcv.Data
 {
@@ -11,7 +12,8 @@ namespace SalesWebMcv.Data
         {
         }
 
-        // Adicione seus DbSets aqui
         public DbSet<Department> Departments { get; set; }
+        public DbSet<SalesRecord> SalesRecords { get; set; }
+        public DbSet<Seller> Sellers { get; set; }
     }
 }
