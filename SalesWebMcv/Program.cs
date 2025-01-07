@@ -1,5 +1,6 @@
 using SalesWebMcv.Data;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Data;
 
 internal class Program
 {
@@ -11,6 +12,7 @@ internal class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddDbContext<SalesWebMvcContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext")));
+        builder.Services.AddScoped<SeedingService>();
 
         var app = builder.Build();
 
@@ -20,6 +22,12 @@ internal class Program
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
+        }
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+            seedingService.Seed();
         }
 
         app.UseHttpsRedirection();
