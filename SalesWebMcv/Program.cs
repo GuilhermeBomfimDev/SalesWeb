@@ -1,6 +1,7 @@
 using SalesWebMcv.Data;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
+using SalesWebMvc.Services;
 
 internal class Program
 {
@@ -13,6 +14,7 @@ internal class Program
         builder.Services.AddDbContext<SalesWebMvcContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext")));
         builder.Services.AddScoped<SeedingService>();
+        builder.Services.AddScoped<SellerService>();
 
         var app = builder.Build();
 
